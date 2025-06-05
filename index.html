@@ -164,6 +164,81 @@
 
       doc.save("resultado-stanley-invertido.pdf");
     }
+    <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Calculadora Stanley Invertido - Gerar PDF</title>
+  <!-- Carrega a biblioteca jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    #resultado {
+      white-space: pre-wrap; /* mantém quebras de linha */
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 320px;
+      min-height: 120px;
+      margin-bottom: 15px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Calculadora Stanley Invertido</h1>
+
+  <!-- Área onde será mostrado o resultado (pode ser preenchido dinamicamente no seu app) -->
+  <div id="resultado">
+Medida 1: 1000 mm
+Medida 2: 500 mm
+Altura do vão: 980 mm
+Modelo: BX-252
+Outros detalhes aqui...
+  </div>
+
+  <!-- Botão para gerar o PDF -->
+  <button id="btnSalvarPDF">Gerar PDF</button>
+
+  <script>
+    window.onload = () => {
+      const { jsPDF } = window.jspdf;
+
+      document.getElementById('btnSalvarPDF').addEventListener('click', () => {
+        const doc = new jsPDF();
+
+        // Logo em base64 (pode trocar pela sua imagem)
+        const logoBase64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABiUlEQVR4nO3XsU4CURAF0XcyD1ZyB7sg30JuknYk4GIRPxPyMhBSZVyxWI9pt4TVnN/P4ScFJkiRJkiRJkuT/A5DWnU9d/7+nOuGsfCGzq2ASBhZQBsYQBsYQBvYNMDXNpD/XeAmP7PboJjGq6mDpY0i8mY+L9DVT6qY1dXZMPW4H9I4G8Zw5WW90U9lyCTBzj9PQhtyQymcMuTvsXw+7RtVJuq4GEjcGtx7xNulakUDhFJ4rIQsdikmPVNEAJylLBVnFDM0UbYowuUoMc0Z9xzJl3RH7MMSn4y4aRAt5wUq0ZtCDY0+xGoMG2EDbUWyA25QNsUdKQLakDZEf3Axv37lHT49Us2W4v4k9P3AVqZy/HxV4EbbdtdD5+h3MAaNhAGxhAGxhAGxhAGxhAGxhAGxj+RfgJGSfNUHnINiQAAAABJRU5ErkJggg==';
+
+        doc.addImage(logoBase64, 'PNG', 70, 10, 60, 20);
+        doc.setFontSize(16);
+        doc.text("Resultado da Calculadora Stanley Invertido", 20, 40);
+
+        const resultado = document.getElementById('resultado').innerText;
+        const linhas = resultado.split('\n');
+
+        doc.setFontSize(12);
+        let y = 55;
+        linhas.forEach(linha => {
+          doc.text(linha.trim(), 20, y);
+          y += 10;
+        });
+
+        doc.save("resultado-stanley-invertido.pdf");
+      });
+    };
+  </script>
+
+</body>
+</html>
+
   </script>
 </body>
 </html>
